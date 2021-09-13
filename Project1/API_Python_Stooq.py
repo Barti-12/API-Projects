@@ -9,11 +9,12 @@ external_stylesheets=['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app=dash.Dash(__name__,external_stylesheets=external_stylesheets)
 
+# some example company names
 markdown="""
 
-Więcej informacji o akcjach na stronie [Stooq](https://stooq.pl/) 
+More information on website [Stooq](https://stooq.pl/) 
 
-|Symbol  |Nazwa firmy |
+|Symbol  |Company name |
 |--------|--------|
 |AAPL    |Apple  |
 |NFLX    |Netflix|
@@ -21,12 +22,12 @@ Więcej informacji o akcjach na stronie [Stooq](https://stooq.pl/)
 |TSLA    |Tesla    | 
 |AMZN    |Amazon    | 
 """
-
+#creating application layout
 app.layout=html.Div([
-    html.H3('Kurs akcji poszczególnych firm'),
+    html.H3('Share price of individual companies'),
 
     html.Div(
-        dcc.Input(id='stock_input',value='AAPL',type='text',placeholder='Wprowadź symbol firmy...'),
+        dcc.Input(id='stock_input',value='AAPL',type='text',placeholder='Enter the company symbol...'),
 
     ),
     html.Button(id='submit-button',n_clicks=0,children='Load data'),
@@ -47,7 +48,7 @@ app.layout=html.Div([
 def update_graph(n_clicks,input_value):
     def financial_data(n_clicks,company=input_value):
         """
-        This function fetch stock market quotations
+        Function to download data from website
         """
         import pandas_datareader as web
         return web.DataReader(name=company, data_source='stooq')
@@ -65,7 +66,7 @@ def update_graph(n_clicks,input_value):
                             name='Stocks')
 
     data.append(value_stock)
-
+    # creating timestamp selector
     layout=dict(title=input_value,
                 xaxis=dict(
                     rangeselector=dict(
@@ -107,7 +108,6 @@ def update_graph(n_clicks,input_value):
             'data':data,
             'layout':layout
              }
-
 
 
 if __name__=='__main__':
