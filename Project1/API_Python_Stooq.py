@@ -4,7 +4,6 @@ import dash_html_components as html
 import  plotly.graph_objects as go
 from dash.dependencies import Output,Input,State
 
-
 external_stylesheets=['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app=dash.Dash(__name__,external_stylesheets=external_stylesheets)
@@ -100,7 +99,6 @@ def update_graph(n_clicks,input_value):
                     type="date"
                 )
     )
-
 
 
 
